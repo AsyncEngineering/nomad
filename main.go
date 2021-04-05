@@ -1,7 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	//"os"
+	"os/user"
+
+	//"github.com/AsyncEngineering/nomad/repl"
+)
 
 func main() {
-	fmt.Println("sanity check")
+	usr, err := user.Current()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("Hello %s, welcome to Nomad ⛺\n", usr.Username)
+	//repl.Start(os.Stdin, os.Stdout)
 }
