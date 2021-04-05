@@ -82,7 +82,14 @@ func (s *Scanner) NextToken() token.Token {
 	case ')':
 		tok = newToken(token.RPAREN, s.current)
 	case '<':
-		tok = newToken(token.LCHEV, s.current)
+		if s.peekChar() == '|' {
+			ch := s.current
+			s.readChar()
+			literal := string(ch) + string(s.current)
+			tok = token.Token{TokenKind: token.BPIPE, Literal: literal}
+		} else {
+			tok = newToken(token.LCHEV, s.current)
+		}
 	case '>':
 		tok = newToken(token.RCHEV, s.current)
 
@@ -108,7 +115,14 @@ func (s *Scanner) NextToken() token.Token {
 		}
 	// handle bitwise/type like things
 	case '|':
-		tok = newToken(token.PIPE, s.current)
+		if s.peekChar() == '>' {
+			ch := s.current
+			s.readChar()
+			literal := string(ch) + string(s.current)
+			tok = token.Token{TokenKind: token.FPIPE, Literal: literal}
+		} else {
+			tok = newToken(token.VPIPE, s.current)
+		}
 	case '&':
 		tok = newToken(token.AMP, s.current)
 
