@@ -10,19 +10,20 @@ import (
 	"github.com/AsyncEngineering/nomad/scanner"
 )
 
-const PROMPT = "⛺> "
+const PROMPT = "⛺λ> "
 
 func Start(in io.Reader, out io.Writer) {
 	scnr := bufio.NewScanner(in)
 
 	for {
-		fmt.Printf(PROMPT)
+		fmt.Print(PROMPT)
 		scanned := scnr.Scan()
 		if !scanned {
 			return
 		}
 
 		ln := scnr.Text()
+		if (ln == "quit()") {break}
 		lxr := scanner.New(ln)
 		p := parser.New(lxr)
 

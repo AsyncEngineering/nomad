@@ -32,7 +32,7 @@ const (
 	COLON // :
 	SEMI  // ;
 
-	ASSIGN // ==
+	ASSIGN // =
 
 	PIPE // |
 	AMP  // &
