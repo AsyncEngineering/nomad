@@ -32,13 +32,11 @@ const (
 	COLON // :
 	SEMI  // ;
 
-	ASSIGN // =
+	ASSIGN // ==
 
-	VPIPE // |
+	PIPE // |
 	AMP  // &
 	BANG // !
-	FPIPE // |>
-	BPIPE // <|
 
 	// arithmeticy bits
 	NEG // -
@@ -87,11 +85,10 @@ var tokens = [...]string{
 
 	ASSIGN: "=",
 
-	VPIPE: "|",
+	PIPE: "|",
 	AMP:  "&",
 	BANG: "!",
-	FPIPE: "|>",
-	BPIPE: "<|",
+
 	NEG: "-",
 	SUM: "+",
 	MUL: "*",

@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	//"os"
+	"os"
 	"os/user"
 
-	//"github.com/AsyncEngineering/nomad/repl"
+	"github.com/AsyncEngineering/nomad"
 )
 
 func main() {
@@ -15,5 +15,5 @@ func main() {
 	}
 
 	fmt.Printf("Hello %s, welcome to Nomad ⛺\n", usr.Username)
-	//repl.Start(os.Stdin, os.Stdout)
+	repl.Start(os.Stdin, os.Stdout)
 }
