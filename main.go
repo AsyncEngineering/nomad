@@ -5,7 +5,7 @@ import (
 	"os"
 	"os/user"
 
-	"github.com/AsyncEngineering/nomad"
+	"github.com/AsyncEngineering/nomad/repl"
 )
 
 func main() {
