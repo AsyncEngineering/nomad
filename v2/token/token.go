@@ -34,10 +34,9 @@ const (
 
 	ASSIGN // =
 
-	PIPE   // |
-	AMP    // &
-	BANG   // !
-	INTERO // ?
+	PIPE // |
+	AMP  // &
+	BANG // !
 
 	// arithmeticy bits
 	NEG // -
@@ -49,17 +48,10 @@ const (
 	NEQL // !=
 
 	_keywords_beg
-	TYPE
-	SWITCH
-	RETURN
 	TRUE
 	FALSE
-	IF
-	ELSE
 	FUNC
 	LET
-	NONE
-	NULL
 	_keywords_end
 )
 
@@ -88,10 +80,9 @@ var tokens = [...]string{
 
 	ASSIGN: "=",
 
-	PIPE:   "|",
-	AMP:    "&",
-	BANG:   "!",
-	INTERO: "?", // not the proper name but oh well
+	PIPE: "|",
+	AMP:  "&",
+	BANG: "!",
 
 	NEG: "-",
 	SUM: "+",
@@ -101,17 +92,10 @@ var tokens = [...]string{
 	EQL:  "==",
 	NEQL: "!=",
 
-	TYPE:   "type",
-	SWITCH: "switch",
-	RETURN: "return",
-	TRUE:   "true",
-	FALSE:  "false",
-	IF:     "if",
-	ELSE:   "else",
-	FUNC:   "func",
-	LET:    "let",
-	NONE:   "none",
-	NULL:   "null",
+	TRUE:  "true",
+	FALSE: "false",
+	FUNC:  "func",
+	LET:   "let",
 }
 
 func (token TokenKind) String() string {

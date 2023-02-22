@@ -35,6 +35,8 @@ func New(lxr *scanner.Scanner) *Parser {
 	p.registerPrefix(token.NEG, p.parsePrefixExpression)
 	p.registerPrefix(token.TRUE, p.parseBoolean)
 	p.registerPrefix(token.FALSE, p.parseBoolean)
+	p.registerPrefix(token.NONE, p.parseNone)
+	p.registerPrefix(token.NULL, p.parseNull)
 	p.registerPrefix(token.LPAREN, p.parseExpressionGroup)
 	p.registerPrefix(token.IF, p.parseIfExpression)
 	p.registerPrefix(token.FUNC, p.parseFunctionLiteral)
@@ -49,6 +51,7 @@ func New(lxr *scanner.Scanner) *Parser {
 	p.registerInfix(token.LCHEV, p.parseInfixExpression)
 	p.registerInfix(token.RCHEV, p.parseInfixExpression)
 	p.registerInfix(token.LPAREN, p.parseInvocationExpression)
+	p.registerInfix(token.INTERO, p.parseInfixExpression)
 
 	// load the first 2 tokens
 	p.nextToken()
@@ -261,6 +264,12 @@ func (p *Parser) parseInvocationArguments() []ast.Expression {
 func (p *Parser) parseBoolean() ast.Expression {
 	return &ast.Boolean{Token: p.currentToken, Value: p.currentTokenIs(token.TRUE)}
 }
+func (p *Parser) parseNone() ast.Expression {
+	return &ast.NoneLiteral{}
+}
+func (p *Parser) parseNull() ast.Expression {
+	return &ast.NullLiteral{}
+}
 
 func (p *Parser) parseIfExpression() ast.Expression {
 	expr := &ast.IfExpression{Token: p.currentToken}
@@ -407,6 +416,7 @@ var precedences = map[token.TokenKind]Precedence{
 	token.MUL:    PRODUCT,
 	token.QUO:    PRODUCT,
 	token.LPAREN: INVOCATION,
+	token.INTERO: EQUALITY,
 }
 
 func (p *Parser) peekPrecedence() Precedence {
@@ -446,3 +456,5 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 
 	return stmt
 }
+
+//func (p *Parser) parseNewTypeDeclaration() *ast.

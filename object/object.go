@@ -28,6 +28,11 @@ type Null struct{}
 func (n *Null) Kind() ObjectKind { return NULL }
 func (n *Null) Inspect() string  { return "null" }
 
+type None struct{}
+
+func (n *None) Kind() ObjectKind { return NONE }
+func (n *None) Inspect() string  { return "none" }
+
 type ObjectKind int
 
 type Object interface {
@@ -40,6 +45,7 @@ const (
 	INTEGER
 	BOOLEAN
 	NULL
+	NONE
 )
 
 var types = [...]string{
@@ -47,6 +53,8 @@ var types = [...]string{
 	INTEGER: "INTEGER",
 	BOOLEAN: "BOOLEAN",
 	NULL:    "NULL",
+	NONE:    "NONE", // bottom type
+	// ANY: "ANY", // top type
 }
 
 func (kind ObjectKind) String() string {

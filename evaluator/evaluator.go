@@ -18,6 +18,12 @@ func Eval(node ast.Node) object.Object {
 	case *ast.IntegerLiteral:
 		return &object.Integer{Value: node.Value}
 
+	case *ast.NullLiteral:
+		return &object.Null{}
+
+	case *ast.NoneLiteral:
+		return &object.None{}
+
 	case *ast.Boolean:
 		return mapBooleans(node.Value)
 
@@ -45,6 +51,7 @@ func mapBooleans(val bool) *object.Boolean {
 }
 
 var (
+	NONE  = &object.None{}
 	NULL  = &object.Null{}
 	TRUE  = &object.Boolean{Value: true}
 	FALSE = &object.Boolean{Value: false}

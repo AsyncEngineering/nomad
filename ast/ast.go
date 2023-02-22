@@ -175,6 +175,47 @@ func (b *Boolean) expressionNode()      {}
 func (b *Boolean) TokenLiteral() string { return b.Token.Literal }
 func (b *Boolean) String() string       { return b.Token.Literal }
 
+type MatchClause struct {
+	Token       token.Token
+	Condition   Expression
+	Consequence Expression
+}
+
+func (c *MatchClause) expressionNode()      {}
+func (c *MatchClause) TokenLiteral() string { return c.Token.Literal }
+func (c *MatchClause) String() string {
+	var out bytes.Buffer
+
+	out.WriteString("| ")
+	out.WriteString(c.Condition.String())
+	out.WriteString(" => ")
+	out.WriteString(c.Consequence.String())
+
+	return out.String()
+}
+
+type MatchExpression struct {
+	Token     token.Token // match token ?
+	Condition Expression
+	Clauses   []*MatchClause
+}
+
+func (m *MatchExpression) expressionNode()      {}
+func (m *MatchExpression) TokenLiteral() string { return m.Token.Literal }
+func (m *MatchExpression) String() string {
+	var out bytes.Buffer
+
+	out.WriteString(m.Condition.String())
+	out.WriteString(" ?\r\n")
+	for _, clause := range m.Clauses {
+		out.WriteString("\t")
+		out.WriteString(clause.String())
+		out.WriteString("\r\n")
+	}
+
+	return out.String()
+}
+
 type IfExpression struct {
 	Token       token.Token // if token
 	Condition   Expression
@@ -267,6 +308,17 @@ func (ie InvocationExpression) String() string {
 
 }
 
+/*
+	type TypeDeclarationExpression struct {
+		// x: type = Cat | Dog
+		// <ident>: <type> = <expr>
+		Token token.Token
+		Name *Identifier
+		Value Expression
+	}
+
+func
+*/
 type LetStatement struct {
 	Token token.Token // the token.LET token
 	Name  *Identifier
@@ -290,3 +342,19 @@ func (ls *LetStatement) String() string {
 
 	return out.String()
 }
+
+type NullLiteral struct {
+	Token token.Token
+}
+
+func (n *NullLiteral) expressionNode()      {}
+func (n *NullLiteral) TokenLiteral() string { return n.Token.Literal }
+func (n *NullLiteral) String() string       { return n.Token.Literal }
+
+type NoneLiteral struct {
+	Token token.Token
+}
+
+func (n *NoneLiteral) expressionNode()      {}
+func (n *NoneLiteral) TokenLiteral() string { return n.Token.Literal }
+func (n *NoneLiteral) String() string       { return n.Token.Literal }
